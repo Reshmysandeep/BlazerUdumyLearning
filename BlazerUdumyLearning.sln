@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazerUdumyLearning.Server", "BlazerUdumyLearning\Server\BlazerUdumyLearning.Server.csproj", "{141F088F-D103-4FAD-B275-923150A13F99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazerUdumyLearning.Server", "BlazerUdumyLearning\Server\BlazerUdumyLearning.Server.csproj", "{141F088F-D103-4FAD-B275-923150A13F99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazerUdumyLearning.Client", "BlazerUdumyLearning\Client\BlazerUdumyLearning.Client.csproj", "{FCA952FB-C8B2-4DE5-99A1-D28D5A374DC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazerUdumyLearning.Client", "BlazerUdumyLearning\Client\BlazerUdumyLearning.Client.csproj", "{FCA952FB-C8B2-4DE5-99A1-D28D5A374DC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazerUdumyLearning.Shared", "BlazerUdumyLearning\Shared\BlazerUdumyLearning.Shared.csproj", "{F9A55748-F067-4DA7-87C0-882FDD56AE05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazerUdumyLearning.Shared", "BlazerUdumyLearning\Shared\BlazerUdumyLearning.Shared.csproj", "{F9A55748-F067-4DA7-87C0-882FDD56AE05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
