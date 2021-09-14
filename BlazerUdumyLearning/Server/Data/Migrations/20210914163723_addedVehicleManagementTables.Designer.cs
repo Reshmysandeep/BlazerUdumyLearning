@@ -4,14 +4,16 @@ using BlazerUdumyLearning.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BlazerUdumyLearning.Server.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210914163723_addedVehicleManagementTables")]
+    partial class addedVehicleManagementTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,12 +39,6 @@ namespace BlazerUdumyLearning.Server.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -88,26 +84,6 @@ namespace BlazerUdumyLearning.Server.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "4a29e15c-dc41-4a8e-a709-ead26b95c951",
-                            Email = "admin@localhost.com",
-                            EmailConfirmed = false,
-                            FirstName = "Admin",
-                            LastName = "User",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@LOCALHOST.COM",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAELDRJPpNfcbDkQdB/l4O0FYW6gX/LW/HVS9d2j9H5kk6GFb80tCqs+1FJn9W8BevAA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "bca63174-fd72-4e70-9c91-e50cf7e816b4",
-                            TwoFactorEnabled = false,
-                            UserName = "Admin"
-                        });
                 });
 
             modelBuilder.Entity("BlazerUdumyLearning.Shared.Domain.Booking", b =>
@@ -181,48 +157,6 @@ namespace BlazerUdumyLearning.Server.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Brands");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BrandName = "Toyota",
-                            CreatedBy = "System",
-                            CreatedDate = new DateTime(2021, 9, 14, 22, 1, 51, 351, DateTimeKind.Local).AddTicks(6919),
-                            Status = "A",
-                            UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 14, 22, 1, 51, 351, DateTimeKind.Local).AddTicks(6926)
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BrandName = "BMW",
-                            CreatedBy = "System",
-                            CreatedDate = new DateTime(2021, 9, 14, 22, 1, 51, 351, DateTimeKind.Local).AddTicks(7226),
-                            Status = "A",
-                            UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 14, 22, 1, 51, 351, DateTimeKind.Local).AddTicks(7229)
-                        },
-                        new
-                        {
-                            Id = 3,
-                            BrandName = "Nissan",
-                            CreatedBy = "System",
-                            CreatedDate = new DateTime(2021, 9, 14, 22, 1, 51, 351, DateTimeKind.Local).AddTicks(7231),
-                            Status = "A",
-                            UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 14, 22, 1, 51, 351, DateTimeKind.Local).AddTicks(7232)
-                        },
-                        new
-                        {
-                            Id = 4,
-                            BrandName = "Honda",
-                            CreatedBy = "System",
-                            CreatedDate = new DateTime(2021, 9, 14, 22, 1, 51, 351, DateTimeKind.Local).AddTicks(7233),
-                            Status = "A",
-                            UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 14, 22, 1, 51, 351, DateTimeKind.Local).AddTicks(7234)
-                        });
                 });
 
             modelBuilder.Entity("BlazerUdumyLearning.Shared.Domain.Customer", b =>
@@ -262,6 +196,36 @@ namespace BlazerUdumyLearning.Server.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("BlazerUdumyLearning.Shared.Domain.Model", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModelName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Models");
                 });
 
             modelBuilder.Entity("BlazerUdumyLearning.Shared.Domain.Vehicle", b =>
@@ -349,110 +313,6 @@ namespace BlazerUdumyLearning.Server.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("VehicleColors");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Color = "Black",
-                            CreatedBy = "system",
-                            CreatedDate = new DateTime(2021, 9, 14, 0, 0, 0, 0, DateTimeKind.Local),
-                            Status = "A",
-                            UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 14, 0, 0, 0, 0, DateTimeKind.Local)
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Color = "Green",
-                            CreatedBy = "system",
-                            CreatedDate = new DateTime(2021, 9, 14, 0, 0, 0, 0, DateTimeKind.Local),
-                            Status = "A",
-                            UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 14, 0, 0, 0, 0, DateTimeKind.Local)
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Color = "Red",
-                            CreatedBy = "system",
-                            CreatedDate = new DateTime(2021, 9, 14, 0, 0, 0, 0, DateTimeKind.Local),
-                            Status = "A",
-                            UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 14, 0, 0, 0, 0, DateTimeKind.Local)
-                        });
-                });
-
-            modelBuilder.Entity("BlazerUdumyLearning.Shared.Domain.VehicleModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ModelName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Models");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedBy = "System",
-                            CreatedDate = new DateTime(2021, 9, 14, 22, 1, 51, 352, DateTimeKind.Local).AddTicks(91),
-                            ModelName = "Prius",
-                            Status = "A",
-                            UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 14, 22, 1, 51, 352, DateTimeKind.Local).AddTicks(96)
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedBy = "System",
-                            CreatedDate = new DateTime(2021, 9, 14, 22, 1, 51, 352, DateTimeKind.Local).AddTicks(416),
-                            ModelName = "Vitz",
-                            Status = "A",
-                            UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 14, 22, 1, 51, 352, DateTimeKind.Local).AddTicks(420)
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedBy = "System",
-                            CreatedDate = new DateTime(2021, 9, 14, 22, 1, 51, 352, DateTimeKind.Local).AddTicks(421),
-                            ModelName = "3 Series",
-                            Status = "A",
-                            UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 14, 22, 1, 51, 352, DateTimeKind.Local).AddTicks(422)
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreatedBy = "System",
-                            CreatedDate = new DateTime(2021, 9, 14, 22, 1, 51, 352, DateTimeKind.Local).AddTicks(424),
-                            ModelName = "X5",
-                            Status = "A",
-                            UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 14, 22, 1, 51, 352, DateTimeKind.Local).AddTicks(424)
-                        });
                 });
 
             modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.DeviceFlowCodes", b =>
@@ -583,22 +443,6 @@ namespace BlazerUdumyLearning.Server.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "cac43a6e-f7bb-4448-baaf-1add431ccbbf",
-                            ConcurrencyStamp = "6263ec74-7abd-40c3-8b5a-9ae35a68f98a",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        },
-                        new
-                        {
-                            Id = "cbc43a8e-f7bb-4445-baaf-1add431ffbbf",
-                            ConcurrencyStamp = "e84e8256-c294-4a51-b31e-e206a3c0455f",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -686,13 +530,6 @@ namespace BlazerUdumyLearning.Server.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
-                            RoleId = "cbc43a8e-f7bb-4445-baaf-1add431ffbbf"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -747,7 +584,7 @@ namespace BlazerUdumyLearning.Server.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BlazerUdumyLearning.Shared.Domain.VehicleModel", "Model")
+                    b.HasOne("BlazerUdumyLearning.Shared.Domain.Model", "Model")
                         .WithMany()
                         .HasForeignKey("ModelId")
                         .OnDelete(DeleteBehavior.Cascade)
