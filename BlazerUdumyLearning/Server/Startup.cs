@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
+using BlazerUdumyLearning.Server.IRepository;
+using BlazerUdumyLearning.Server.Repository;
 
 namespace BlazerUdumyLearning.Server
 {
@@ -40,7 +42,7 @@ namespace BlazerUdumyLearning.Server
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
-
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
