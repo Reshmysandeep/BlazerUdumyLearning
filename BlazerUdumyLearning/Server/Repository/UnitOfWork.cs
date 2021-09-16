@@ -7,6 +7,9 @@ using BlazerUdumyLearning.Server.IRepository;
 using BlazerUdumyLearning.Shared.Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using BlazerUdumyLearning.Server.Models;
 
 namespace BlazerUdumyLearning.Server.Repository
 {
@@ -19,10 +22,11 @@ namespace BlazerUdumyLearning.Server.Repository
         private IGenericRepository<Booking> _bookings;
         private IGenericRepository<Customer> _customers;
         private IGenericRepository<Vehicle> _vehicles;
-
-        public UnitOfWork(ApplicationDbContext context)
+        private UserManager<ApplicationUser> _userManager;
+        public UnitOfWork(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
         public IGenericRepository<Brand> Brands => _Brands ??= new GenericRepository<Brand>(_context);
 
@@ -45,18 +49,21 @@ namespace BlazerUdumyLearning.Server.Repository
 
         public async Task Save(HttpContext httpcontext)
         {
-            var user = httpcontext.User.Identity.Name;
+            //var user = httpcontext.User.Identity.Name;
+
+            var userid = httpcontext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var user = await _userManager.FindByIdAsync(userid);
 
             var enteries = _context.ChangeTracker.Entries()
                 .Where(q => q.State == EntityState.Modified || q.State == EntityState.Added);
             foreach (var entry in enteries)
             {
                 ((BaseDomain)entry.Entity).UpdatedDate = DateTime.Now.Date;
-                ((BaseDomain)entry.Entity).UpdatedBy = user;
+                ((BaseDomain)entry.Entity).UpdatedBy = user.UserName;
                 if (entry.State==EntityState.Added)
                 {
                     ((BaseDomain)entry.Entity).CreatedDate = DateTime.Now.Date;
-                    ((BaseDomain)entry.Entity).CreatedBy = user;
+                    ((BaseDomain)entry.Entity).CreatedBy = user.UserName;
                 }
             }
             await _context.SaveChangesAsync();

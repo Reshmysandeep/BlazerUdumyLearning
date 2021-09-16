@@ -5,10 +5,7 @@
 
 
 
-<h3 class="card-title">Bookings</h3>
-<hr />
-<br />
-
+<PageHeaderTitle PageHeaderTitleText="Bookings"></PageHeaderTitle>
 <a href="/bookings/create" class="btn btn-secondary">
     <span class="oi oi-plus"></span>
     Create Booking
@@ -39,7 +36,7 @@ else
                     <td>@booking.Customers.TaxId</td>
                     <td>@booking.CreatedDate.Date.ToString("dd MMMM yyyy")</td>
                     <td>
-                        @(booking.DateIn != null ? (booking.DateIn - booking.DateOut).TotalDays.ToString()
+                        @(booking.DateIn != null ? (booking.DateIn - booking.DateOut).Value.TotalDays.ToString()
                             : "To Be Determined")
                     </td>
                     <td>

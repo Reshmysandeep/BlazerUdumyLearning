@@ -21,8 +21,10 @@ namespace BlazerUdumyLearning.Shared.Domain
         [Required]
         public int ColourId { get; set; }
         [Required]
+        [Display(Name = "Vehicle Identification Number")]
         public string Vin { get; set; }
         [Required]
+        [Display(Name = "License Plate Number")]
         public string LicensePlateNumber { get; set; }
         [Required]
         public double RentalRate { get; set; }

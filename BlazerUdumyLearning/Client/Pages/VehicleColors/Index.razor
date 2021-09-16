@@ -4,10 +4,9 @@
 @attribute [Authorize]
 
 
+<PageHeaderTitle PageHeaderTitleText="Colors"></PageHeaderTitle>
 
-<h3 class="card-title">Colors</h3>
-<hr />
-<br />
+
 <a href="/vehiclecolors/create" class="btn btn-secondary">
     <span class="oi oi-plus"></span>
     Create Color
@@ -38,7 +37,7 @@ else
                     <td>@VColor.Color</td>
                     <td>@VColor.Status</td>
                     <td>
-                        <a href="" class="btn btn-primary">
+                        <a href="/vehiclecolors/view/@VColor.Id" class="btn btn-primary">
                             <span class="oi oi-book">
 
                             </span>

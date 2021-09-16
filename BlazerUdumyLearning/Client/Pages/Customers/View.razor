@@ -1,11 +1,9 @@
-﻿@page "/customers/edit/{id:int}"
+﻿@page "/customers/view/{id:int}"
 @inject HttpClient _CustomerClient
 @inject NavigationManager _navManager
 
-<PageHeaderTitle PageHeaderTitleText="Update Customer"></PageHeaderTitle>
-<FormComponents OnValidSubmit="UpdateCustomer" Customersdata="customerModel" buttonText="Update Customer" />
-
-
+<PageHeaderTitle PageHeaderTitleText="View Customer"></PageHeaderTitle>
+<FormComponents IsDisabled="true" Customersdata="customerModel" />
 
 @code {
     [Parameter] public int id { get; set; }

@@ -5,66 +5,75 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-body">
-                    <EditForm Model="vehicleBook" OnValidSubmit="@OnValidSubmit">
-                        <ValidationSummary />
+                    <EditForm Model="@vehicleBook" OnValidSubmit="OnValidSubmit">
+
                         <DataAnnotationsValidator />
-                        <div class="form-group">
-                            <label>Vehicle</label>
-                            <div>
-                                <InputSelect @bind-Value="vehicleBook.VehicleId" class="form-control">
-                                    <option value="">-- Select --</option>
-                                    @if (vehicles != null)
-                                    {
-                                        @foreach (var item in vehicles)
-                                        {
-                                            <option value="@item.Id">@item.Brands.BrandName - @item.Model.ModelName - @item.LicensePlateNumber</option>
-                                        }
-                                    }
-                                </InputSelect>
-                                <ValidationMessage For="@(() => vehicleBook.VehicleId)" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Vehicle</label>
-                            <div>
-                                <InputSelect @bind-Value="vehicleBook.CustomerId" class="form-control">
-                                    <option value="">-- Select --</option>
-                                    @if (listCustomers != null)
-                                    {
-                                        @foreach (var customer in listCustomers)
-                                        {
-                                            <option value="@customer.Id">@customer.TaxId - @customer.EmailAddress - @customer.ContactNumber</option>
-                                        }
-                                    }
-
-                                </InputSelect>
-                                <ValidationMessage For="@(() => vehicleBook.CustomerId)" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Date Out:</label>
-                            <div>
-                                <InputDate @bind-Value="@vehicleBook.DateOut" class="form-control" />
-                                <ValidationMessage For="@(() => vehicleBook.DateOut)" />
-                            </div>
-                        </div>
-                        @if (vehicleBook.Id > 0)
-                        {
+                        <ValidationSummary />
+                        <fieldset disabled="@IsReadonly">
                             <div class="form-group">
-                                <label>Date In:</label>
+                                <label>Vehicle</label>
                                 <div>
-                                    <InputDate @bind-Value="@vehicleBook.DateIn" class="form-control" />
-                                    <ValidationMessage For="@(() => vehicleBook.DateIn)" />
+                                    <select @bind="vehicleBook.VehicleId" class="form-control">
+                                        <option value="">-- Select --</option>
+                                        @if (vehicles != null)
+                                        {
+                                            @foreach (var item in vehicles)
+                                            {
+                                                <option value="@item.Id">@item.Brands.BrandName - @item.Model.ModelName - @item.LicensePlateNumber</option>
+                                            }
+                                        }
+                                    </select>
+                                    <ValidationMessage For="@(() => vehicleBook.VehicleId)" />
                                 </div>
                             </div>
-                        }
 
+                            <div class="form-group">
+                                <label>Customer</label>
+                                <div>
+                                    <select @bind="vehicleBook.CustomerId" class="form-control">
+                                        <option value="">-- Select --</option>
+                                        @if (listCustomers != null)
+                                        {
+                                            @foreach (var customer in listCustomers)
+                                            {
+                                                <option value="@customer.Id">@customer.TaxId - @customer.Email - @customer.ContactNumber</option>
+                                            }
+                                        }
+
+                                    </select>
+                                    <ValidationMessage For="@(() => vehicleBook.CustomerId)" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Date Out:</label>
+                                <div>
+                                    <InputDate @bind-Value="@vehicleBook.DateOut" class="form-control" />
+                                    <ValidationMessage For="@(() => vehicleBook.DateOut)" />
+                                </div>
+                            </div>
+                            @if (vehicleBook.Id > 0)
+                            {
+                                <div class="form-group">
+                                    <label>Date In:</label>
+                                    <div>
+                                        <InputDate @bind-Value="@vehicleBook.DateIn" class="form-control" />
+                                        <ValidationMessage For="@(() => vehicleBook.DateIn)" />
+                                    </div>
+                                </div>
+                            }
+
+                        </fieldset>
+                        @if(!@IsReadonly)
+                        {
                         <div class="form-group">
-                            <button class="btn btn-success btn-primary" type="submit">
+                            <button class="btn btn-success btn-block" type="submit">
                                 @ButtonText
                             </button>
+                        </div>
+                        }
+                        <div>
+                            <BackToList Target="bookings" />
                         </div>
                     </EditForm>
                 </div>
@@ -86,4 +95,5 @@
     [Parameter] public Booking vehicleBook { get; set; }
     [Parameter] public EventCallback OnValidSubmit { get; set; }
     [Parameter] public string ButtonText { get; set; }
+    [Parameter] public bool IsReadonly { get; set; } = false;
 }

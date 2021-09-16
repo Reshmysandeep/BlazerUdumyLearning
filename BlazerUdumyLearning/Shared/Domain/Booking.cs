@@ -7,14 +7,16 @@ using System.Threading.Tasks;
 
 namespace BlazerUdumyLearning.Shared.Domain
 {
-    public class Booking:BaseDomain
+    public class Booking:BaseDomain,IValidatableObject
     {
+        [Required]
         public int VehicleId { get; set; }
         public virtual Vehicle Vehicles { get; set; }
         [Required]
         [DataType(DataType.Date)]
         public DateTime DateOut { get; set; }
-        public DateTime DateIn { get; set; }
+        public DateTime? DateIn { get; set; }
+
         public virtual Customer Customers { get; set; }
         [Required]
         public int CustomerId { get; set; }

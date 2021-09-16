@@ -1,12 +1,12 @@
 ﻿
-@page "/vehicles/edit/{id:int}"
+@page "/vehicles/view/{id:int}"
 
 @inject HttpClient _vehicleClient
 @inject NavigationManager _navManager
 
-<PageHeaderTitle PageHeaderTitleText="Update vehicle"></PageHeaderTitle>
+<PageHeaderTitle PageHeaderTitleText="View vehicle"></PageHeaderTitle>
 
-<FormComponent ButtonText="Update" vehicle="@vehicle" OnValidSubmit="@UpdateVehicle" />
+<FormComponent IsDisabled="true" vehicle="@vehicle" OnValidSubmit="@UpdateVehicle" />
 
 
 @code {

@@ -5,9 +5,7 @@
 
 
 
-<h3 class="card-title">Brands</h3>
-<hr />
-<br />
+<PageHeaderTitle PageHeaderTitleText="Brand"></PageHeaderTitle>
 <a href="/brands/create" class="btn btn-secondary">
     <span class="oi oi-plus"></span>
     Create Brand
@@ -39,7 +37,7 @@ else
                     <td>@brand.BrandName</td>
                     <td>@brand.Status</td>
                     <td>
-                        <a href="" class="btn btn-primary">
+                        <a href="/brands/view/@brand.Id" class="btn btn-primary">
                             <span class="oi oi-book">
 
                             </span>

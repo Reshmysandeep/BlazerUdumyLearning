@@ -6,18 +6,24 @@
                     <EditForm Model="@vColors" OnValidSubmit="@OnValidSubmit">
                         <ValidationSummary />
                         <DataAnnotationsValidator />
-                        <div class="form-group">
-                            <label>Color Name :</label>
-                            <div>
-                                <InputText @bind-Value="vColors.Color" class="form-control"></InputText>
-                                <ValidationMessage For="@(()=>vColors.Color)" />
+                        <fieldset disabled="@IsDisabled">
+                            <div class="form-group">
+                                <label>Color Name :</label>
+                                <div>
+                                    <InputText @bind-Value="vColors.Color" class="form-control"></InputText>
+                                    <ValidationMessage For="@(()=>vColors.Color)" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn-success btn-primary" type="submit">
-                                @ButtonText
-                            </button>
-                        </div>
+                        </fieldset>
+                        @if(!IsDisabled)
+                {
+                    <div class="form-group">
+                        <button class="btn btn-success btn-block" type="submit">
+                            @ButtonText
+                        </button>
+                    </div>
+                }
+                        
                         <div>
                             <BackToList Target="vehiclecolors" />
                         </div>
@@ -32,4 +38,5 @@
     [Parameter] public VehicleColor vColors { get; set; }
     [Parameter] public string ButtonText { get; set; }
     [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] public bool IsDisabled { get; set; }
 }

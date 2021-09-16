@@ -22,11 +22,11 @@ namespace BlazerUdumyLearning.Shared.Domain
         public string TaxId { get; set; }
         public string Address { get; set; }
         [Required]
-        [DataType(DataType.PhoneNumber)]
+        [Phone]
         public string ContactNumber { get; set; }
         [Required]
-        [DataType(DataType.EmailAddress)]
-        public string EmailAddress { get; set; }
+        [EmailAddress]
+        public string Email { get; set; }
         public virtual List<Booking> Bookings { get; set; }
     }
 }

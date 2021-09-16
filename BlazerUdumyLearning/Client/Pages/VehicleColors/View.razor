@@ -1,11 +1,11 @@
-﻿@page "/vehiclecolors/edit/{id:int}"
+﻿@page "/vehiclecolors/view/{id:int}"
 
 @inject HttpClient _colorsclient
 @inject NavigationManager navManager
 
-<PageHeaderTitle PageHeaderTitleText="Update Color"></PageHeaderTitle>
+<PageHeaderTitle PageHeaderTitleText="View Color"></PageHeaderTitle>
 
-<Formcomponent ButtonText="update Color" OnValidSubmit="@UpdateColors" vColors="vehiclecolor"  ></Formcomponent>
+<Formcomponent IsDisabled="true" OnValidSubmit="@UpdateColors" vColors="vehiclecolor"></Formcomponent>
 
 @code {
     [Parameter] public int id { get; set; }

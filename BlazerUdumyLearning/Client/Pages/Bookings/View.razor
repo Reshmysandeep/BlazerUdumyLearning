@@ -1,11 +1,10 @@
-﻿@page "/bookings/update/{id:int}"
+﻿@page "/bookings/view/{id:int}"
 
 @inject HttpClient _client
 @inject NavigationManager navManger
 
-<PageHeaderTitle PageHeaderTitleText="Update Booking"></PageHeaderTitle>
-<FormComponet ButtonText="Update" OnValidSubmit="BookVehicle" vehicleBook="vehicleBook" />
-
+<PageHeaderTitle PageHeaderTitleText="View Booking"></PageHeaderTitle>
+<FormComponet IsReadonly="true" vehicleBook="vehicleBook" />
 @code {
     [Parameter] public int id { get; set; }
 
@@ -17,7 +16,7 @@
     protected async override Task OnParametersSetAsync()
     {
         vehicleBook = await _client.GetFromJsonAsync<Booking>($"{ EndPoints.BookingEndpoint}/{id}");
-       
+
     }
     private async Task BookVehicle()
     {

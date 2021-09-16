@@ -4,14 +4,16 @@ using BlazerUdumyLearning.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BlazerUdumyLearning.Server.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210916155936_changeanototaion")]
+    partial class changeanototaion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,7 +96,7 @@ namespace BlazerUdumyLearning.Server.Data.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b0cbbd01-1073-4c1a-8b90-4b0f7f3137a5",
+                            ConcurrencyStamp = "20148cba-fb08-4a29-b905-4148c0e0cad7",
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -102,9 +104,9 @@ namespace BlazerUdumyLearning.Server.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAENqu2URTSUh7IdEMQsEVRAVatyy06Htv30aJDQRO32+v1Qg+03QIJTH686cPuSJAiQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMwoCW38/exXT0Mr7PyiggqlNRz0rhXWBPu/zDcDha5sr+mZFsY6qg+eSaaoBzaZ5A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d59b1b12-c5fc-4b78-b6a5-c66db553d404",
+                            SecurityStamp = "9ab34e33-3bc1-4ac5-a35b-561bb77ec75c",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -189,40 +191,40 @@ namespace BlazerUdumyLearning.Server.Data.Migrations
                             Id = 1,
                             BrandName = "Toyota",
                             CreatedBy = "System",
-                            CreatedDate = new DateTime(2021, 9, 16, 20, 36, 34, 246, DateTimeKind.Local).AddTicks(1563),
+                            CreatedDate = new DateTime(2021, 9, 16, 19, 59, 35, 988, DateTimeKind.Local).AddTicks(8991),
                             Status = "A",
                             UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 16, 20, 36, 34, 246, DateTimeKind.Local).AddTicks(1572)
+                            UpdatedDate = new DateTime(2021, 9, 16, 19, 59, 35, 988, DateTimeKind.Local).AddTicks(8996)
                         },
                         new
                         {
                             Id = 2,
                             BrandName = "BMW",
                             CreatedBy = "System",
-                            CreatedDate = new DateTime(2021, 9, 16, 20, 36, 34, 246, DateTimeKind.Local).AddTicks(1881),
+                            CreatedDate = new DateTime(2021, 9, 16, 19, 59, 35, 988, DateTimeKind.Local).AddTicks(9316),
                             Status = "A",
                             UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 16, 20, 36, 34, 246, DateTimeKind.Local).AddTicks(1885)
+                            UpdatedDate = new DateTime(2021, 9, 16, 19, 59, 35, 988, DateTimeKind.Local).AddTicks(9319)
                         },
                         new
                         {
                             Id = 3,
                             BrandName = "Nissan",
                             CreatedBy = "System",
-                            CreatedDate = new DateTime(2021, 9, 16, 20, 36, 34, 246, DateTimeKind.Local).AddTicks(1886),
+                            CreatedDate = new DateTime(2021, 9, 16, 19, 59, 35, 988, DateTimeKind.Local).AddTicks(9320),
                             Status = "A",
                             UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 16, 20, 36, 34, 246, DateTimeKind.Local).AddTicks(1887)
+                            UpdatedDate = new DateTime(2021, 9, 16, 19, 59, 35, 988, DateTimeKind.Local).AddTicks(9321)
                         },
                         new
                         {
                             Id = 4,
                             BrandName = "Honda",
                             CreatedBy = "System",
-                            CreatedDate = new DateTime(2021, 9, 16, 20, 36, 34, 246, DateTimeKind.Local).AddTicks(1889),
+                            CreatedDate = new DateTime(2021, 9, 16, 19, 59, 35, 988, DateTimeKind.Local).AddTicks(9323),
                             Status = "A",
                             UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 16, 20, 36, 34, 246, DateTimeKind.Local).AddTicks(1890)
+                            UpdatedDate = new DateTime(2021, 9, 16, 19, 59, 35, 988, DateTimeKind.Local).AddTicks(9323)
                         });
                 });
 
@@ -246,7 +248,7 @@ namespace BlazerUdumyLearning.Server.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("EmailAddress")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -265,8 +267,7 @@ namespace BlazerUdumyLearning.Server.Data.Migrations
 
                     b.Property<string>("TaxId")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -433,41 +434,41 @@ namespace BlazerUdumyLearning.Server.Data.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-                            CreatedDate = new DateTime(2021, 9, 16, 20, 36, 34, 246, DateTimeKind.Local).AddTicks(4896),
+                            CreatedDate = new DateTime(2021, 9, 16, 19, 59, 35, 989, DateTimeKind.Local).AddTicks(2154),
                             ModelName = "Prius",
                             Status = "A",
                             UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 16, 20, 36, 34, 246, DateTimeKind.Local).AddTicks(4901)
+                            UpdatedDate = new DateTime(2021, 9, 16, 19, 59, 35, 989, DateTimeKind.Local).AddTicks(2159)
                         },
                         new
                         {
                             Id = 2,
                             CreatedBy = "System",
-                            CreatedDate = new DateTime(2021, 9, 16, 20, 36, 34, 246, DateTimeKind.Local).AddTicks(5193),
+                            CreatedDate = new DateTime(2021, 9, 16, 19, 59, 35, 989, DateTimeKind.Local).AddTicks(2444),
                             ModelName = "Vitz",
                             Status = "A",
                             UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 16, 20, 36, 34, 246, DateTimeKind.Local).AddTicks(5197)
+                            UpdatedDate = new DateTime(2021, 9, 16, 19, 59, 35, 989, DateTimeKind.Local).AddTicks(2447)
                         },
                         new
                         {
                             Id = 3,
                             CreatedBy = "System",
-                            CreatedDate = new DateTime(2021, 9, 16, 20, 36, 34, 246, DateTimeKind.Local).AddTicks(5198),
+                            CreatedDate = new DateTime(2021, 9, 16, 19, 59, 35, 989, DateTimeKind.Local).AddTicks(2448),
                             ModelName = "3 Series",
                             Status = "A",
                             UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 16, 20, 36, 34, 246, DateTimeKind.Local).AddTicks(5199)
+                            UpdatedDate = new DateTime(2021, 9, 16, 19, 59, 35, 989, DateTimeKind.Local).AddTicks(2449)
                         },
                         new
                         {
                             Id = 4,
                             CreatedBy = "System",
-                            CreatedDate = new DateTime(2021, 9, 16, 20, 36, 34, 246, DateTimeKind.Local).AddTicks(5201),
+                            CreatedDate = new DateTime(2021, 9, 16, 19, 59, 35, 989, DateTimeKind.Local).AddTicks(2451),
                             ModelName = "X5",
                             Status = "A",
                             UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 16, 20, 36, 34, 246, DateTimeKind.Local).AddTicks(5201)
+                            UpdatedDate = new DateTime(2021, 9, 16, 19, 59, 35, 989, DateTimeKind.Local).AddTicks(2451)
                         });
                 });
 
@@ -604,14 +605,14 @@ namespace BlazerUdumyLearning.Server.Data.Migrations
                         new
                         {
                             Id = "cac43a6e-f7bb-4448-baaf-1add431ccbbf",
-                            ConcurrencyStamp = "728353e8-65c0-477d-8c18-bc99b5d4bd92",
+                            ConcurrencyStamp = "e0f148b4-b46d-4eaf-a5e6-57177a66bdef",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "cbc43a8e-f7bb-4445-baaf-1add431ffbbf",
-                            ConcurrencyStamp = "42f519dc-927b-4c20-98ca-c53a191bdc43",
+                            ConcurrencyStamp = "43dc8baf-34e6-4211-acf1-f23688ccd698",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });

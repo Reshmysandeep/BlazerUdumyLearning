@@ -5,10 +5,7 @@
 
 
 
-<h3 class="card-title">Customers</h3>
-<hr />
-<br />
-
+<PageHeaderTitle PageHeaderTitleText="Customer"></PageHeaderTitle>
 <a href="/customers/create" class="btn btn-secondary">
     <span class="oi oi-plus"></span>
     Create Customer
@@ -25,6 +22,7 @@ else
     <table class="table table-responsive-md">
         <thead>
             <tr>
+                <th>Customer Name</th>
                 <th>
                     Customer Tax No
                 </th>
@@ -42,12 +40,13 @@ else
             @foreach (var cust in customerslist)
             {
             <tr>
+                <td>@cust.FirstName @cust.LastName</td>
                 <td>@cust.TaxId</td>
-                <td>@cust.EmailAddress</td>
+                <td>@cust.Email</td>
                 <td>@cust.ContactNumber</td>
                 
                 <td>
-                    <a href="" class="btn btn-primary">
+                    <a href="/customers/view/@cust.Id" class="btn btn-primary">
                         <span class="oi oi-book">
 
                         </span>
@@ -80,7 +79,7 @@ else
     async Task Delete(int customerid)
     {
         var customerdata = customerslist.Find(b => b.Id == customerid);
-        var confirm = await _js.InvokeAsync<bool>("confirm", $"Do you want to delete { customerdata.EmailAddress} ?");
+        var confirm = await _js.InvokeAsync<bool>("confirm", $"Do you want to delete { customerdata.Email} ?");
         if (confirm)
         {
             await _customerClient.DeleteAsync($"{EndPoints.VehicleEndpoint}/{customerid}");

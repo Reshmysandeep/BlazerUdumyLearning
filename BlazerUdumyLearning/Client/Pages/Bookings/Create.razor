@@ -3,11 +3,8 @@
 @inject HttpClient _client
 @inject NavigationManager navManger
 
-<h3>Create Booking</h3>
-
-<br />
-<hr />
-<FormComponet ButtonText="Save" OnValidSubmit="BookVehicle"   vehicleBook="vehicleBook" />
+<PageHeaderTitle PageHeaderTitleText="New Booking"></PageHeaderTitle>
+<FormComponet ButtonText="Save" OnValidSubmit="@BookVehicle"   vehicleBook="@vehicleBook" />
 
 @code {
 

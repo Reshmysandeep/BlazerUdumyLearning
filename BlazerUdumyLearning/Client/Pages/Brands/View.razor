@@ -1,15 +1,15 @@
-﻿@page "/brands/edit/{id:int}"
+﻿@page "/brands/view/{id:int}"
 @inject HttpClient _brandclient
 @inject NavigationManager _navManager
 
-
-<PageHeaderTitle PageHeaderTitleText="Update Brand"></PageHeaderTitle>
-<FormComponent ButtonText="Update Brand" OnValidSubmit="@UpdateBrand" vehiclebrands="vehicleBrand"/>
+<PageHeaderTitle PageHeaderTitleText="View Brand"></PageHeaderTitle>
+<FormComponent IsDisabled="true" vehiclebrands="vehicleBrand" />
 
 @code {
     [Parameter] public int id { get; set; }
     Brand vehicleBrand = new Brand();
-    protected async override Task OnParametersSetAsync() {
+    protected async override Task OnParametersSetAsync()
+    {
         vehicleBrand = await _brandclient.GetFromJsonAsync<Brand>($"{ EndPoints.BrandEndPoints}/{id}");
     }
     async Task UpdateBrand()
