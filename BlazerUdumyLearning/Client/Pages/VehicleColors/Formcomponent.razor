@@ -1,0 +1,35 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-body">
+                    <EditForm Model="@vColors" OnValidSubmit="@OnValidSubmit">
+                        <ValidationSummary />
+                        <DataAnnotationsValidator />
+                        <div class="form-group">
+                            <label>Color Name :</label>
+                            <div>
+                                <InputText @bind-Value="vColors.Color" class="form-control"></InputText>
+                                <ValidationMessage For="@(()=>vColors.Color)" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-success btn-primary" type="submit">
+                                @ButtonText
+                            </button>
+                        </div>
+                        <div>
+                            <BackToList Target="vehiclecolors" />
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public VehicleColor vColors { get; set; }
+    [Parameter] public string ButtonText { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+}

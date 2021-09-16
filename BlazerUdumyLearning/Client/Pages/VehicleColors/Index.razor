@@ -1,0 +1,81 @@
+﻿@page "/vehiclecolors/"
+@inject HttpClient _colorsClient
+@inject IJSRuntime _js
+@attribute [Authorize]
+
+
+
+<h3 class="card-title">Colors</h3>
+<hr />
+<br />
+<a href="/vehiclecolors/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create Color
+</a>
+<br />
+<hr />
+@if (VehicleColorsModel == null)
+{
+    <div class="alert alert-info">Loading....</div>
+}
+else
+{
+    <table class="table table-responsive-md">
+        <thead>
+            <tr>
+                <th>
+                    Color
+                </th>
+                <th>Status</th>
+
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var VColor in VehicleColorsModel)
+            {
+                <tr>
+                    <td>@VColor.Color</td>
+                    <td>@VColor.Status</td>
+                    <td>
+                        <a href="" class="btn btn-primary">
+                            <span class="oi oi-book">
+
+                            </span>
+                        </a>
+                        <a href="/vehiclecolors/edit/@VColor.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil">
+
+                            </span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@((()=> Delete(VColor.Id)))">
+                            <span class="oi oi-delete">
+
+                            </span>
+                        </button>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<VehicleColor> VehicleColorsModel;//vehicle models model
+
+    protected async override Task OnInitializedAsync()
+    {
+        VehicleColorsModel = await _colorsClient.GetFromJsonAsync<List<VehicleColor>>($"{EndPoints.VehicleColorEndPoint}");// ("api/Brands");
+    }
+    async Task Delete(int colorid)
+    {
+        var vehicleModel = VehicleColorsModel.Find(b => b.Id == colorid);
+        var confirm = await _js.InvokeAsync<bool>("confirm", $"Do you want to delete { vehicleModel.Color} ?");
+        if (confirm)
+        {
+            await _colorsClient.DeleteAsync($"{EndPoints.VehicleColorEndPoint}/{colorid}");
+            await OnInitializedAsync();
+        }
+    }
+}

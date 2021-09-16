@@ -1,0 +1,23 @@
+﻿@page "/vehiclecolors/create"
+
+@inject HttpClient _colorsclient
+@inject NavigationManager navManager
+
+
+<h3>Create Colors</h3>
+<br />
+<hr />
+
+<Formcomponent ButtonText="Save Color" OnValidSubmit="@createvColors" vColors="vColors" />
+
+@code {
+
+    VehicleColor vColors = new VehicleColor();
+
+    private async Task createvColors()
+    {
+        vColors.Status = "A";
+        await _colorsclient.PostAsJsonAsync($"{EndPoints.VehicleColorEndPoint}", vColors);
+        navManager.NavigateTo("/vehiclecolors/");
+    }
+}

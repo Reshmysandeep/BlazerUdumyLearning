@@ -1,0 +1,25 @@
+﻿@page "/vehiclecolors/edit/{id:int}"
+
+@inject HttpClient _colorsclient
+@inject NavigationManager navManager
+
+<h3>
+    Update Color
+</h3>
+<br />
+<hr />
+<Formcomponent ButtonText="update Color" OnValidSubmit="@UpdateColors" vColors="vehiclecolor"  ></Formcomponent>
+
+@code {
+    [Parameter] public int id { get; set; }
+    VehicleColor vehiclecolor = new VehicleColor();
+    protected async override Task OnParametersSetAsync()
+    {
+        vehiclecolor = await _colorsclient.GetFromJsonAsync<VehicleColor>($"{ EndPoints.VehicleColorEndPoint}/{id}");
+    }
+    async Task UpdateColors()
+    {
+        await _colorsclient.PutAsJsonAsync($"{EndPoints.VehicleColorEndPoint}/{id}", vehiclecolor);
+        navManager.NavigateTo("/vehiclecolors/");
+    }
+}

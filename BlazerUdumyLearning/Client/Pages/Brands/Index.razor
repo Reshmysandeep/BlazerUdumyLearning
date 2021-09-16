@@ -1,0 +1,82 @@
+﻿@page "/brands/"
+@inject HttpClient _brandClient
+@inject IJSRuntime _js
+@attribute [Authorize]
+
+
+
+<h3 class="card-title">Brands</h3>
+<hr />
+<br />
+<a href="/brands/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create Brand
+</a>
+<br />
+<hr />
+
+@if (BrandModel == null)
+{
+    <div class="alert alert-info">Loading....</div>
+}
+else
+{
+    <table class="table table-responsive-md">
+        <thead>
+            <tr>
+                <th>
+                    Brand
+                </th>
+                <th>Status</th>
+
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var brand in BrandModel)
+            {
+                <tr>
+                    <td>@brand.BrandName</td>
+                    <td>@brand.Status</td>
+                    <td>
+                        <a href="" class="btn btn-primary">
+                            <span class="oi oi-book">
+
+                            </span>
+                        </a>
+                        <a  href="/brands/edit/@brand.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil">
+
+                            </span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@((()=> DeleteBrand(brand.Id)))">
+                            <span class="oi oi-delete">
+
+                            </span>
+                        </button>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Brand> BrandModel;
+
+    protected async override Task OnInitializedAsync()
+    {
+        BrandModel = await _brandClient.GetFromJsonAsync<List<Brand>>($"{EndPoints.BrandEndPoints}");// ("api/Brands");
+    }
+    async Task DeleteBrand(int BrandId)
+    {
+        var Brand = BrandModel.Find(b => b.Id == BrandId);
+        var confirm = await _js.InvokeAsync<bool>("confirm", $"Do you want to delete { Brand.BrandName } ?");
+        if (confirm)
+        {
+            await _brandClient.DeleteAsync($"{EndPoints.BrandEndPoints}/{BrandId}");
+            await OnInitializedAsync();
+        }
+    }
+}

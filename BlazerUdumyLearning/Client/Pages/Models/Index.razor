@@ -1,0 +1,81 @@
+﻿@page "/models/"
+@inject HttpClient _modelsClient
+@inject IJSRuntime _js
+@attribute [Authorize]
+
+
+
+<h3 class="card-title">Models</h3>
+<hr />
+<br />
+<a href="/models/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create Model
+</a>
+<br />
+<hr />
+@if (VehicleModModel == null)
+{
+    <div class="alert alert-info">Loading....</div>
+}
+else
+{
+    <table class="table table-responsive-md">
+        <thead>
+            <tr>
+                <th>
+                    Model
+                </th>
+                <th>Status</th>
+
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var vmodels in VehicleModModel)
+            {
+                <tr>
+                    <td>@vmodels.ModelName</td>
+                    <td>@vmodels.Status</td>
+                    <td>
+                        <a href="" class="btn btn-primary">
+                            <span class="oi oi-book">
+
+                            </span>
+                        </a>
+                        <a href="/models/edit/@vmodels.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil">
+
+                            </span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@((()=> Delete(vmodels.Id)))">
+                            <span class="oi oi-delete">
+
+                            </span>
+                        </button>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<VehicleModel> VehicleModModel;//vehicle models model
+
+    protected async override Task OnInitializedAsync()
+    {
+        VehicleModModel = await _modelsClient.GetFromJsonAsync<List<VehicleModel>>($"{EndPoints.VehicleModelsEndPoints}");// ("api/Brands");
+    }
+    async Task Delete(int modelId)
+    {
+        var vehicleModel = VehicleModModel.Find(b => b.Id == modelId);
+        var confirm = await _js.InvokeAsync<bool>("confirm", $"Do you want to delete { vehicleModel.ModelName} ?");
+        if (confirm)
+        {
+            await _modelsClient.DeleteAsync($"{EndPoints.VehicleModelsEndPoints}/{modelId}");
+            await OnInitializedAsync();
+        }
+    }
+}

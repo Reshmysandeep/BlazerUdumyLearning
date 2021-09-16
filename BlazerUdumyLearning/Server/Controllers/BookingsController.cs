@@ -25,15 +25,16 @@ namespace BlazerUdumyLearning.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Booking>>> GetBookings()
         {
-           
-            return Ok(await _unitOfWork.Bookings.GetAll());
+            var includes = new List<string> { "Vehicles", "Customers" };
+            return Ok(await _unitOfWork.Bookings.GetAll(includes:includes));
         }
 
         // GET: api/Bookings/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Booking>> GetBooking(int id)
         {
-            var booking = await _unitOfWork.Bookings.Get(b=>b.Id==id);
+            var includes = new List<string> { "Vehicles", "Customers" };
+            var booking = await _unitOfWork.Bookings.Get(b=>b.Id==id, includes: includes);
 
             if (booking == null)
             {

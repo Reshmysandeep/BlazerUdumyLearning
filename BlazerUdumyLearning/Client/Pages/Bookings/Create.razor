@@ -1,0 +1,27 @@
+﻿@page "/bookings/create"
+
+@inject HttpClient _client
+@inject NavigationManager navManger
+
+<h3>Create Booking</h3>
+
+<br />
+<hr />
+<FormComponet ButtonText="Save" OnValidSubmit="BookVehicle"   vehicleBook="vehicleBook" />
+
+@code {
+
+    Booking vehicleBook = new Booking
+    {
+        DateOut = System.DateTime.Now.Date
+    };
+    
+
+    private async Task BookVehicle()
+    {
+        vehicleBook.Status = "A";
+        await _client.PostAsJsonAsync($"{EndPoints.BookingEndpoint}", vehicleBook);
+        navManger.NavigateTo("/bookings/");
+    }
+
+}

@@ -1,0 +1,89 @@
+﻿@inject HttpClient _client
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-body">
+                    <EditForm Model="vehicleBook" OnValidSubmit="@OnValidSubmit">
+                        <ValidationSummary />
+                        <DataAnnotationsValidator />
+                        <div class="form-group">
+                            <label>Vehicle</label>
+                            <div>
+                                <InputSelect @bind-Value="vehicleBook.VehicleId" class="form-control">
+                                    <option value="">-- Select --</option>
+                                    @if (vehicles != null)
+                                    {
+                                        @foreach (var item in vehicles)
+                                        {
+                                            <option value="@item.Id">@item.Brands.BrandName - @item.Model.ModelName - @item.LicensePlateNumber</option>
+                                        }
+                                    }
+                                </InputSelect>
+                                <ValidationMessage For="@(() => vehicleBook.VehicleId)" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Vehicle</label>
+                            <div>
+                                <InputSelect @bind-Value="vehicleBook.CustomerId" class="form-control">
+                                    <option value="">-- Select --</option>
+                                    @if (listCustomers != null)
+                                    {
+                                        @foreach (var customer in listCustomers)
+                                        {
+                                            <option value="@customer.Id">@customer.TaxId - @customer.EmailAddress - @customer.ContactNumber</option>
+                                        }
+                                    }
+
+                                </InputSelect>
+                                <ValidationMessage For="@(() => vehicleBook.CustomerId)" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Date Out:</label>
+                            <div>
+                                <InputDate @bind-Value="@vehicleBook.DateOut" class="form-control" />
+                                <ValidationMessage For="@(() => vehicleBook.DateOut)" />
+                            </div>
+                        </div>
+                        @if (vehicleBook.Id > 0)
+                        {
+                            <div class="form-group">
+                                <label>Date In:</label>
+                                <div>
+                                    <InputDate @bind-Value="@vehicleBook.DateIn" class="form-control" />
+                                    <ValidationMessage For="@(() => vehicleBook.DateIn)" />
+                                </div>
+                            </div>
+                        }
+
+                        <div class="form-group">
+                            <button class="btn btn-success btn-primary" type="submit">
+                                @ButtonText
+                            </button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@code {
+    private List<Vehicle> vehicles;
+    private List<Customer> listCustomers;
+    protected async override Task OnInitializedAsync()
+    {
+        vehicles = await _client.GetFromJsonAsync<List<Vehicle>>($"{EndPoints.VehicleEndpoint}");// ("api/Brands");
+        listCustomers = await _client.GetFromJsonAsync<List<Customer>>($"{EndPoints.CustomerEndPoint}");
+    }
+    [Parameter] public Booking vehicleBook { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] public string ButtonText { get; set; }
+}

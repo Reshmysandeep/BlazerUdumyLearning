@@ -25,15 +25,18 @@ namespace BlazerUdumyLearning.Server.Controllers
         // GET: api/Vehicles
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Vehicle>>> GetVehicles()
+
         {
-            return Ok( await _context.Vehicles.GetAll());
+            var includes = new List<string> {"Brands", "Model", "Colour"};
+            return Ok(await _context.Vehicles.GetAll(includes: includes));
         }
 
         // GET: api/Vehicles/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Vehicle>> GetVehicle(int id)
         {
-            var vehicle = await _context.Vehicles.Get(v=>v.Id==id);
+            var includes = new List<string> { "Brands", "Model", "Colour", "Bookings" };
+            var vehicle = await _context.Vehicles.Get(v => v.Id == id,includes: includes);
 
             if (vehicle == null)
             {
@@ -89,7 +92,7 @@ namespace BlazerUdumyLearning.Server.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVehicle(int id)
         {
-            var vehicle = await _context.Vehicles.Get(v=>v.Id==id);
+            var vehicle = await _context.Vehicles.Get(v => v.Id == id);
             if (vehicle == null)
             {
                 return NotFound();
@@ -101,7 +104,7 @@ namespace BlazerUdumyLearning.Server.Controllers
             return NoContent();
         }
 
-        private async Task< bool> VehicleExists(int id)
+        private async Task<bool> VehicleExists(int id)
         {
             return await _context.Vehicles.IsExist(id);
         }

@@ -1,0 +1,96 @@
+﻿@page "/vehicles/"
+@inject HttpClient _vehicleClient
+@inject IJSRuntime _js
+@attribute [Authorize]
+
+
+
+<h3 class="card-title">Vehicles</h3>
+<hr />
+<br />
+
+<a href="/vehicles/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Vehicle
+</a>
+<br />
+<hr />
+
+@if (vehiclesmod == null)
+{
+    <div class="alert alert-info">Loading....</div>
+}
+else
+{
+    <table class="table table-responsive-md">
+        <thead>
+            <tr>
+                <th>
+                    Model
+                </th>
+                <th>
+                    Brand
+                </th>
+                <th>
+                    Color
+                </th>
+                <th>
+                    Year
+                </th>
+                <th>
+                    Rental Rate
+                </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var vehicle in vehiclesmod)
+            {
+            <tr>
+                <td>@vehicle.Model.ModelName</td>
+                <td>@vehicle.Brands.BrandName</td>
+                <td>@vehicle.Colour.Color</td>
+                <td>@vehicle.Year</td>
+                <td>@vehicle.RentalRate</td>
+                <td>
+                    <a href="" class="btn btn-primary">
+                        <span class="oi oi-book">
+
+                        </span>
+                    </a>
+                    <a href="/vehicles/edit/@vehicle.Id" class="btn btn-warning">
+                        <span class="oi oi-pencil">
+
+                        </span>
+                    </a>
+                    <button class="btn btn-danger" @onclick="@((()=> Delete(vehicle.Id)))">
+                        <span class="oi oi-delete">
+
+                        </span>
+                    </button>
+                </td>
+            </tr>
+
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Vehicle> vehiclesmod;//vehicle models model
+
+    protected async override Task OnInitializedAsync()
+    {
+        vehiclesmod = await _vehicleClient.GetFromJsonAsync<List<Vehicle>>($"{EndPoints.VehicleEndpoint}");// ("api/Brands");
+    }
+    async Task Delete(int vehicleid)
+    {
+        var vehicleModel = vehiclesmod.Find(b => b.Id == vehicleid);
+        var confirm = await _js.InvokeAsync<bool>("confirm", $"Do you want to delete { vehicleModel.Vin} ?");
+        if (confirm)
+        {
+            await _vehicleClient.DeleteAsync($"{EndPoints.VehicleEndpoint}/{vehicleid}");
+            await OnInitializedAsync();
+        }
+    }
+}

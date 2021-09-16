@@ -1,0 +1,24 @@
+﻿@page "/customers/edit/{id:int}"
+@inject HttpClient _CustomerClient
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Update Customer</h3>
+<hr />
+<br />
+<FormComponents OnValidSubmit="UpdateCustomer" Customersdata="customerModel" buttonText="Update Customer" />
+
+
+
+@code {
+    [Parameter] public int id { get; set; }
+    Customer customerModel = new Customer();
+    protected async override Task OnParametersSetAsync()
+    {
+        customerModel = await _CustomerClient.GetFromJsonAsync<Customer>($"{ EndPoints.CustomerEndPoint}/{id}");
+    }
+    async Task UpdateCustomer()
+    {
+        await _CustomerClient.PutAsJsonAsync($"{EndPoints.CustomerEndPoint}/{id}", customerModel);
+        _navManager.NavigateTo("/customers/");
+    }
+}

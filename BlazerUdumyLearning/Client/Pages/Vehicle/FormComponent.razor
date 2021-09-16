@@ -1,0 +1,128 @@
+﻿@inject HttpClient _vehicleClient
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-8">
+            <div class="card">
+                <div class="card-body">
+
+
+                    <EditForm Model="@vehicle" OnValidSubmit="OnValidSubmit">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+                        <div class="form-group">
+                            <label>Brand : </label>
+                            <div>
+                                <select @bind="vehicle.BrandId" class="form-control">
+                                    <option value="">--Select--</option>
+                                    @if (brands != null)
+                                    {
+                                        @foreach (var item in brands)
+                                        {
+                                            <option value="@item.Id">@item.BrandName</option>
+                                        }
+                                    }
+                                </select>
+                                <ValidationMessage For="@(()=>vehicle.BrandId)" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Model : </label>
+                            <div>
+                                <select @bind="vehicle.ModelId" class="form-control">
+                                    <option value="">--Select--</option>
+                                    @if (models != null)
+                                    {
+                                        @foreach (var item in models)
+                                        {
+                                            <option value="@item.Id">@item.ModelName</option>
+                                        }
+                                    }
+                                </select>
+                                <ValidationMessage For="@(()=>vehicle.ModelId)" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Colors : </label>
+                            <div>
+                                <select @bind="vehicle.ColourId" class="form-control">
+                                    <option value="">--Select--</option>
+                                    @if (vehicolors != null)
+                                    {
+                                        @foreach (var item in vehicolors)
+                                        {
+                                            <option value="@item.Id">@item.Color</option>
+                                        }
+                                    }
+                                </select>
+                                <ValidationMessage For="@(()=>vehicle.ModelId)" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Year : </label>
+                            <div>
+                                <InputNumber @bind-Value="@vehicle.Year" class="form-control"></InputNumber>
+                                <ValidationMessage For="@(()=>vehicle.Year)" />
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label>License Plate Number : </label>
+                            <div>
+                                <InputText @bind-Value="@vehicle.LicensePlateNumber" class="form-control"></InputText>
+                                <ValidationMessage For="@(()=>vehicle.LicensePlateNumber)" />
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label>Vehicle Identification Number : </label>
+                            <div>
+                                <InputText @bind-Value="@vehicle.Vin" class="form-control"></InputText>
+                                <ValidationMessage For="@(()=>vehicle.Vin)" />
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label>Daily Rate : </label>
+                            <div>
+                                <InputNumber @bind-Value="@vehicle.RentalRate" class="form-control"></InputNumber>
+                                <ValidationMessage For="@(()=>vehicle.RentalRate)" />
+                            </div>
+
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-success btn-block">
+                                @ButtonText
+                            </button>
+                        </div>
+                        <div>
+                            <BackToList Target="vehicles" />
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    private List<Brand> brands;
+    private List<VehicleModel> models;
+    private List<VehicleColor> vehicolors;
+
+    [Parameter] public Vehicle vehicle { get; set; }
+
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] public string ButtonText { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        brands = await _vehicleClient.GetFromJsonAsync<List<Brand>>($"{EndPoints.BrandEndPoints}");// ("api/Brands");
+        models = await _vehicleClient.GetFromJsonAsync<List<VehicleModel>>($"{EndPoints.VehicleModelsEndPoints}");// ("api/Brands");
+        vehicolors = await _vehicleClient.GetFromJsonAsync<List<VehicleColor>>($"{EndPoints.VehicleColorEndPoint}");// ("api/Brands");
+    }
+
+}

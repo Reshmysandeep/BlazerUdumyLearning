@@ -1,0 +1,90 @@
+﻿@page "/customers/"
+@inject HttpClient _customerClient
+@inject IJSRuntime _js
+@attribute [Authorize]
+
+
+
+<h3 class="card-title">Customers</h3>
+<hr />
+<br />
+
+<a href="/customers/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create Customer
+</a>
+<br />
+<hr />
+
+@if (customerslist == null)
+{
+    <div class="alert alert-info">Loading....</div>
+}
+else
+{
+    <table class="table table-responsive-md">
+        <thead>
+            <tr>
+                <th>
+                    Customer Tax No
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Contact
+                </th>
+               
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cust in customerslist)
+            {
+            <tr>
+                <td>@cust.TaxId</td>
+                <td>@cust.EmailAddress</td>
+                <td>@cust.ContactNumber</td>
+                
+                <td>
+                    <a href="" class="btn btn-primary">
+                        <span class="oi oi-book">
+
+                        </span>
+                    </a>
+                    <a href="/customers/edit/@cust.Id" class="btn btn-warning">
+                        <span class="oi oi-pencil">
+
+                        </span>
+                    </a>
+                    <button class="btn btn-danger" @onclick="@((()=> Delete(cust.Id)))">
+                        <span class="oi oi-delete">
+
+                        </span>
+                    </button>
+                </td>
+            </tr>
+
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Customer> customerslist;//vehicle models model
+
+    protected async override Task OnInitializedAsync()
+    {
+        customerslist = await _customerClient.GetFromJsonAsync<List<Customer>>($"{EndPoints.CustomerEndPoint}");// ("api/Brands");
+    }
+    async Task Delete(int customerid)
+    {
+        var customerdata = customerslist.Find(b => b.Id == customerid);
+        var confirm = await _js.InvokeAsync<bool>("confirm", $"Do you want to delete { customerdata.EmailAddress} ?");
+        if (confirm)
+        {
+            await _customerClient.DeleteAsync($"{EndPoints.VehicleEndpoint}/{customerid}");
+            await OnInitializedAsync();
+        }
+    }
+}

@@ -1,0 +1,31 @@
+﻿@page "/bookings/update/{id:int}"
+
+@inject HttpClient _client
+@inject NavigationManager navManger
+
+<h3>Update Bookings</h3>
+<br />
+<hr />
+<FormComponet ButtonText="Update" OnValidSubmit="BookVehicle" vehicleBook="vehicleBook" />
+
+@code {
+    [Parameter] public int id { get; set; }
+
+    Booking vehicleBook = new Booking
+    {
+        DateIn = System.DateTime.Now,
+        DateOut = System.DateTime.Now
+    };
+    protected async override Task OnParametersSetAsync()
+    {
+        vehicleBook = await _client.GetFromJsonAsync<Booking>($"{ EndPoints.BookingEndpoint}/{id}");
+       
+    }
+    private async Task BookVehicle()
+    {
+        vehicleBook.Status = "A";
+        await _client.PutAsJsonAsync($"{EndPoints.BookingEndpoint}/{id}", vehicleBook);
+        navManger.NavigateTo("/bookings/");
+    }
+
+}

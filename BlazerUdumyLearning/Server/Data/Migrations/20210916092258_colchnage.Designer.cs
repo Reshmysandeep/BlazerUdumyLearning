@@ -4,14 +4,16 @@ using BlazerUdumyLearning.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BlazerUdumyLearning.Server.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210916092258_colchnage")]
+    partial class colchnage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,7 +96,7 @@ namespace BlazerUdumyLearning.Server.Data.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "24e0b7c1-7b31-4263-ab2a-277a1bb7e91a",
+                            ConcurrencyStamp = "ce5f90cf-a8ca-4890-a08d-846341a78a49",
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -102,9 +104,9 @@ namespace BlazerUdumyLearning.Server.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEL8NQTwVHYvS7s6dmnXu8JclY070TD4QxKfsqSluzKInRk40FWKGqQyS5huGv3+m6A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENz/Ka63Kcwym6Uzt67HshbwMzNosVHVv4/brhOJPf0ShaXmxqoDVBg+EexlOfcQGQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "066e5998-5f07-4856-b928-62d342de5aca",
+                            SecurityStamp = "421b4b7a-6d3c-4ba7-b3cb-b81317ddc0a2",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -188,40 +190,40 @@ namespace BlazerUdumyLearning.Server.Data.Migrations
                             Id = 1,
                             BrandName = "Toyota",
                             CreatedBy = "System",
-                            CreatedDate = new DateTime(2021, 9, 16, 16, 15, 14, 426, DateTimeKind.Local).AddTicks(8450),
+                            CreatedDate = new DateTime(2021, 9, 16, 13, 22, 57, 674, DateTimeKind.Local).AddTicks(5867),
                             Status = "A",
                             UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 16, 16, 15, 14, 426, DateTimeKind.Local).AddTicks(8455)
+                            UpdatedDate = new DateTime(2021, 9, 16, 13, 22, 57, 674, DateTimeKind.Local).AddTicks(5874)
                         },
                         new
                         {
                             Id = 2,
                             BrandName = "BMW",
                             CreatedBy = "System",
-                            CreatedDate = new DateTime(2021, 9, 16, 16, 15, 14, 426, DateTimeKind.Local).AddTicks(8750),
+                            CreatedDate = new DateTime(2021, 9, 16, 13, 22, 57, 674, DateTimeKind.Local).AddTicks(6206),
                             Status = "A",
                             UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 16, 16, 15, 14, 426, DateTimeKind.Local).AddTicks(8753)
+                            UpdatedDate = new DateTime(2021, 9, 16, 13, 22, 57, 674, DateTimeKind.Local).AddTicks(6210)
                         },
                         new
                         {
                             Id = 3,
                             BrandName = "Nissan",
                             CreatedBy = "System",
-                            CreatedDate = new DateTime(2021, 9, 16, 16, 15, 14, 426, DateTimeKind.Local).AddTicks(8754),
+                            CreatedDate = new DateTime(2021, 9, 16, 13, 22, 57, 674, DateTimeKind.Local).AddTicks(6212),
                             Status = "A",
                             UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 16, 16, 15, 14, 426, DateTimeKind.Local).AddTicks(8755)
+                            UpdatedDate = new DateTime(2021, 9, 16, 13, 22, 57, 674, DateTimeKind.Local).AddTicks(6213)
                         },
                         new
                         {
                             Id = 4,
                             BrandName = "Honda",
                             CreatedBy = "System",
-                            CreatedDate = new DateTime(2021, 9, 16, 16, 15, 14, 426, DateTimeKind.Local).AddTicks(8756),
+                            CreatedDate = new DateTime(2021, 9, 16, 13, 22, 57, 674, DateTimeKind.Local).AddTicks(6214),
                             Status = "A",
                             UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 16, 16, 15, 14, 426, DateTimeKind.Local).AddTicks(8757)
+                            UpdatedDate = new DateTime(2021, 9, 16, 13, 22, 57, 674, DateTimeKind.Local).AddTicks(6215)
                         });
                 });
 
@@ -414,41 +416,41 @@ namespace BlazerUdumyLearning.Server.Data.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-                            CreatedDate = new DateTime(2021, 9, 16, 16, 15, 14, 427, DateTimeKind.Local).AddTicks(2447),
+                            CreatedDate = new DateTime(2021, 9, 16, 13, 22, 57, 674, DateTimeKind.Local).AddTicks(9449),
                             ModelName = "Prius",
                             Status = "A",
                             UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 16, 16, 15, 14, 427, DateTimeKind.Local).AddTicks(2452)
+                            UpdatedDate = new DateTime(2021, 9, 16, 13, 22, 57, 674, DateTimeKind.Local).AddTicks(9455)
                         },
                         new
                         {
                             Id = 2,
                             CreatedBy = "System",
-                            CreatedDate = new DateTime(2021, 9, 16, 16, 15, 14, 427, DateTimeKind.Local).AddTicks(2753),
+                            CreatedDate = new DateTime(2021, 9, 16, 13, 22, 57, 674, DateTimeKind.Local).AddTicks(9950),
                             ModelName = "Vitz",
                             Status = "A",
                             UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 16, 16, 15, 14, 427, DateTimeKind.Local).AddTicks(2756)
+                            UpdatedDate = new DateTime(2021, 9, 16, 13, 22, 57, 674, DateTimeKind.Local).AddTicks(9954)
                         },
                         new
                         {
                             Id = 3,
                             CreatedBy = "System",
-                            CreatedDate = new DateTime(2021, 9, 16, 16, 15, 14, 427, DateTimeKind.Local).AddTicks(2758),
+                            CreatedDate = new DateTime(2021, 9, 16, 13, 22, 57, 674, DateTimeKind.Local).AddTicks(9956),
                             ModelName = "3 Series",
                             Status = "A",
                             UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 16, 16, 15, 14, 427, DateTimeKind.Local).AddTicks(2759)
+                            UpdatedDate = new DateTime(2021, 9, 16, 13, 22, 57, 674, DateTimeKind.Local).AddTicks(9957)
                         },
                         new
                         {
                             Id = 4,
                             CreatedBy = "System",
-                            CreatedDate = new DateTime(2021, 9, 16, 16, 15, 14, 427, DateTimeKind.Local).AddTicks(2760),
+                            CreatedDate = new DateTime(2021, 9, 16, 13, 22, 57, 674, DateTimeKind.Local).AddTicks(9959),
                             ModelName = "X5",
                             Status = "A",
                             UpdatedBy = "System",
-                            UpdatedDate = new DateTime(2021, 9, 16, 16, 15, 14, 427, DateTimeKind.Local).AddTicks(2761)
+                            UpdatedDate = new DateTime(2021, 9, 16, 13, 22, 57, 674, DateTimeKind.Local).AddTicks(9960)
                         });
                 });
 
@@ -585,14 +587,14 @@ namespace BlazerUdumyLearning.Server.Data.Migrations
                         new
                         {
                             Id = "cac43a6e-f7bb-4448-baaf-1add431ccbbf",
-                            ConcurrencyStamp = "bf9c8a8f-66ae-4c75-b3c0-4c5b288cf345",
+                            ConcurrencyStamp = "b90a20aa-9383-4f7d-a2a4-bf9862e6046d",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "cbc43a8e-f7bb-4445-baaf-1add431ffbbf",
-                            ConcurrencyStamp = "4e84ec8c-c049-4ba8-a163-844c0e27aeac",
+                            ConcurrencyStamp = "297e18d0-5c5e-4d3b-b4df-73bd82b91e1f",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -715,21 +717,21 @@ namespace BlazerUdumyLearning.Server.Data.Migrations
 
             modelBuilder.Entity("BlazerUdumyLearning.Shared.Domain.Booking", b =>
                 {
-                    b.HasOne("BlazerUdumyLearning.Shared.Domain.Customer", "Customers")
+                    b.HasOne("BlazerUdumyLearning.Shared.Domain.Customer", "Customer")
                         .WithMany("Bookings")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BlazerUdumyLearning.Shared.Domain.Vehicle", "Vehicles")
+                    b.HasOne("BlazerUdumyLearning.Shared.Domain.Vehicle", "Vehicle")
                         .WithMany("Bookings")
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Customers");
+                    b.Navigation("Customer");
 
-                    b.Navigation("Vehicles");
+                    b.Navigation("Vehicle");
                 });
 
             modelBuilder.Entity("BlazerUdumyLearning.Shared.Domain.Vehicle", b =>
