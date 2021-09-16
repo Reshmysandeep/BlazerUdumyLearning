@@ -1,6 +1,5 @@
 ﻿@page "/brands/"
-@inject HttpClient _brandClient
-@inject IJSRuntime _js
+
 @attribute [Authorize]
 
 
@@ -61,20 +60,5 @@ else
 }
 
 @code {
-    private List<Brand> BrandModel;
-
-    protected async override Task OnInitializedAsync()
-    {
-        BrandModel = await _brandClient.GetFromJsonAsync<List<Brand>>($"{EndPoints.BrandEndPoints}");// ("api/Brands");
-    }
-    async Task DeleteBrand(int BrandId)
-    {
-        var Brand = BrandModel.Find(b => b.Id == BrandId);
-        var confirm = await _js.InvokeAsync<bool>("confirm", $"Do you want to delete { Brand.BrandName } ?");
-        if (confirm)
-        {
-            await _brandClient.DeleteAsync($"{EndPoints.BrandEndPoints}/{BrandId}");
-            await OnInitializedAsync();
-        }
-    }
+    
 }
