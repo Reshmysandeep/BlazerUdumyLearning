@@ -1,3 +1,4 @@
+using BlazerUdumyLearning.Client.Contractor;
 using BlazerUdumyLearning.Client.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -32,6 +33,7 @@ namespace BlazerUdumyLearning.Client
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("BlazerUdumyLearning.ServerAPI"));
             builder.Services.AddHttpClientInterceptor();
             builder.Services.AddScoped<HttpInterceptorService>();
+            builder.Services.AddTransient(typeof(IHttpRepository<>), typeof(HttpRepository<>));
             builder.Services.AddApiAuthorization();
 
             await builder.Build().RunAsync();

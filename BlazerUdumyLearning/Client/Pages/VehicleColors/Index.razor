@@ -1,5 +1,5 @@
 ﻿@page "/vehiclecolors/"
-@inject HttpClient _colorsClient
+@inject IHttpRepository<VehicleColor> _colorsClient
 @inject IJSRuntime _js
 @attribute [Authorize]
 
@@ -19,7 +19,7 @@
 }
 else
 {
-    <table class="table table-responsive-md">
+    <table class="table table-responsive-md" id="colorTable">
         <thead>
             <tr>
                 <th>
@@ -65,16 +65,22 @@ else
 
     protected async override Task OnInitializedAsync()
     {
-        VehicleColorsModel = await _colorsClient.GetFromJsonAsync<List<VehicleColor>>($"{EndPoints.VehicleColorEndPoint}");// ("api/Brands");
+        VehicleColorsModel = await _colorsClient.GetAll(EndPoints.VehicleColorEndPoint); //.GetFromJsonAsync<List<VehicleColor>>($"{EndPoints.VehicleColorEndPoint}");// ("api/Brands");
     }
+
+    
+
     async Task Delete(int colorid)
     {
         var vehicleModel = VehicleColorsModel.Find(b => b.Id == colorid);
         var confirm = await _js.InvokeAsync<bool>("confirm", $"Do you want to delete { vehicleModel.Color} ?");
         if (confirm)
         {
-            await _colorsClient.DeleteAsync($"{EndPoints.VehicleColorEndPoint}/{colorid}");
+            await _colorsClient.Delete(EndPoints.VehicleColorEndPoint,colorid);
             await OnInitializedAsync();
         }
     }
+
+    
+
 }

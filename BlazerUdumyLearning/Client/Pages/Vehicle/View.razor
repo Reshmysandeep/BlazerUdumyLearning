@@ -1,12 +1,13 @@
 ﻿
 @page "/vehicles/view/{id:int}"
 
-@inject HttpClient _vehicleClient
+@inject IHttpRepository<Vehicle> _vehicleClient
+
 @inject NavigationManager _navManager
 
 <PageHeaderTitle PageHeaderTitleText="View vehicle"></PageHeaderTitle>
 
-<FormComponent IsDisabled="true" vehicle="@vehicle" OnValidSubmit="@UpdateVehicle" />
+<FormComponent IsDisabled="true" vehicle="@vehicle"  />
 
 
 @code {
@@ -14,11 +15,7 @@
     Vehicle vehicle = new Vehicle();
     protected async override Task OnParametersSetAsync()
     {
-        vehicle = await _vehicleClient.GetFromJsonAsync<Vehicle>($"{ EndPoints.VehicleEndpoint}/{id}");
+        vehicle = await _vehicleClient.GetDetails(EndPoints.VehicleEndpoint, id);
     }
-    async Task UpdateVehicle()
-    {
-        await _vehicleClient.PutAsJsonAsync($"{EndPoints.VehicleEndpoint}/{id}", vehicle);
-        _navManager.NavigateTo("/vehicles/");
-    }
+    
 }

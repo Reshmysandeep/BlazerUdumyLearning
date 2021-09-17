@@ -27,7 +27,7 @@ namespace BlazerUdumyLearning.Shared.Domain
             {
                 if (DateIn <= DateOut)
                 {
-                    yield return new ValidationResult("Date In must be greater than Date Out", new[] { "DateIn" });
+                    yield return new ValidationResult("Date In must be greater than Date Out", new[] { nameof(DateIn) });
                 }
             }
         }

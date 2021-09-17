@@ -24,16 +24,21 @@ namespace BlazerUdumyLearning.Client.Pages.Brands
 
         protected async override Task OnInitializedAsync()
         {
-            _interceptor.monitorEvents();
+           // _interceptor.monitorEvents();
             BrandModel = await _brandClient.GetFromJsonAsync<List<Brand>>($"{EndPoints.BrandEndPoints}");// ("api/Brands");
         }
+        protected async override Task OnAfterRenderAsync(bool firstRender)
+        {
+            await _js.InvokeVoidAsync("AddDataTable", "#brandTable");
+        }
+
         async Task DeleteBrand(int BrandId)
         {
             var Brand = BrandModel.Find(b => b.Id == BrandId);
             var confirm = await _js.InvokeAsync<bool>("confirm", $"Do you want to delete { Brand.BrandName } ?");
             if (confirm)
             {
-                _interceptor.monitorEvents();
+               // _interceptor.monitorEvents();
                 await _brandClient.DeleteAsync($"{EndPoints.BrandEndPoints}/{BrandId}");
                 await OnInitializedAsync();
             }
@@ -41,7 +46,8 @@ namespace BlazerUdumyLearning.Client.Pages.Brands
 
         public void Dispose()
         {
-            _interceptor.DisposeEvent();
+           // _interceptor.DisposeEvent();
+            _js.InvokeVoidAsync("DataTablesDispose", "#brandTable");
         }
     }
 }

@@ -11,6 +11,25 @@
                         <DataAnnotationsValidator />
                         <ValidationSummary />
                         <fieldset disabled="@IsDisabled">
+                            @if (IsDisabled)
+                            {
+                                <div class="form-group">
+                                    <label>Image (Optional):</label>
+                                    <div>
+                                        <img src="@vehicle.imageName" class="img-thumbnail" style="width:150px; height:150px" />
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-group">
+                                    <label>Image (Optional):</label>
+                                    <div>
+                                        <InputFile OnChange="HandleFileSelection" />
+                                        <p class="text-danger">@UploadFileWarning</p>
+                                    </div>
+                                </div>
+                            }
                             <div class="form-group">
                                 <label>Brand : </label>
                                 <div>
@@ -122,7 +141,7 @@
     private List<Brand> brands;
     private List<VehicleModel> models;
     private List<VehicleColor> vehicolors;
-
+    string UploadFileWarning;
 
     protected async override Task OnInitializedAsync()
     {
@@ -130,5 +149,26 @@
         models = await _vehicleClient.GetFromJsonAsync<List<VehicleModel>>($"{EndPoints.VehicleModelsEndPoints}");// ("api/Brands");
         vehicolors = await _vehicleClient.GetFromJsonAsync<List<VehicleColor>>($"{EndPoints.VehicleColorEndPoint}");// ("api/Brands");
     }
-
+    private async void HandleFileSelection(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        if (file != null)
+        {
+            var ext = System.IO.Path.GetExtension(file.Name);
+            if (ext.ToLower().Contains("jpg")
+                || ext.ToLower().Contains("png")
+                || ext.ToLower().Contains("jpeg"))
+            {
+                var picId = Guid.NewGuid().ToString().Replace("-", "");
+                vehicle.imageName = $"{picId}{ext}";
+                vehicle.image = new byte[file.Size];
+                await file.OpenReadStream().ReadAsync(vehicle.image);
+                UploadFileWarning = string.Empty;
+            }
+            else
+            {
+                UploadFileWarning = "Please select a valid image file (*.jpg | *.png)";
+            }
+        }
+    }
 }

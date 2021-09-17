@@ -1,7 +1,7 @@
 ﻿
 @page "/vehicles/edit/{id:int}"
-
-@inject HttpClient _vehicleClient
+@inject IHttpRepository<Vehicle> _vehicleClient
+@*@inject HttpClient _vehicleClient*@
 @inject NavigationManager _navManager
 
 <PageHeaderTitle PageHeaderTitleText="Update vehicle"></PageHeaderTitle>
@@ -10,15 +10,16 @@
 
 
 @code {
-    [Parameter] public int id { get; set; }
-    Vehicle vehicle = new Vehicle();
+        [Parameter] public int id { get; set; }
+        Vehicle vehicle = new Vehicle();
     protected async override Task OnParametersSetAsync()
     {
-        vehicle = await _vehicleClient.GetFromJsonAsync<Vehicle>($"{ EndPoints.VehicleEndpoint}/{id}");
+        //vehicle = await _vehicleClient.GetAll(EndPoints.VehicleEndpoint,id);
+        vehicle = await _vehicleClient.Get(EndPoints.VehicleEndpoint, id);
     }
     async Task UpdateVehicle()
     {
-        await _vehicleClient.PutAsJsonAsync($"{EndPoints.VehicleEndpoint}/{id}", vehicle);
+        await _vehicleClient.Update(EndPoints.VehicleEndpoint,vehicle,id);
         _navManager.NavigateTo("/vehicles/");
     }
 }

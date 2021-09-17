@@ -1,6 +1,7 @@
 ﻿@page "/bookings/"
 @inject HttpClient _bookingClient
 @inject IJSRuntime _js
+
 @attribute [Authorize]
 
 
@@ -20,7 +21,7 @@
 }
 else
 {
-    <table class="table table-responsive-md">
+    <table class="table table-striped" id="bookingstable">
         <thead>
             <tr>
                 <th>Customer Tax Id</th>
@@ -65,6 +66,10 @@ else
     {
         BookingModel = await _bookingClient.GetFromJsonAsync<List<Booking>>($"{EndPoints.BookingEndpoint}");// ("api/Brands");
     }
+    //protected async override Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    await _js.InvokeVoidAsync("AddDataTable", "#bookingstable");
+    //}
     async Task Delete(int bookingid)
     {
         var booking = BookingModel.Find(b => b.Id == bookingid);
@@ -75,4 +80,10 @@ else
             await OnInitializedAsync();
         }
     }
+
+    //public void Dispose()
+    //{
+    //    // _interceptor.DisposeEvent();
+    //    _js.InvokeVoidAsync("DataTablesDispose", "#brandTable");
+    //}
 }
