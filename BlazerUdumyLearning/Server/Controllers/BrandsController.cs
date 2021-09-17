@@ -26,6 +26,8 @@ namespace BlazerUdumyLearning.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetBrands()
         {
+            
+
             var brands= await _unitofWork.Brands.GetAll();
             return Ok(brands);
         }
@@ -34,6 +36,7 @@ namespace BlazerUdumyLearning.Server.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Brand>> GetBrand(int id)
         {
+           
             var brand = await _unitofWork.Brands.Get(p=>p.Id==id);
 
             if (brand == null)
